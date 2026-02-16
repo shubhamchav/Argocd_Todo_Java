@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/shubhamchav/Argocd_Todo_Java.git
-    targetRevision: main
+    targetRevision: master
     path: backend/k8s
   destination:
     server: https://kubernetes.default.svc
