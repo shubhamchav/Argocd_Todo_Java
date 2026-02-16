@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: <YOUR_GIT_REPO_URL>
+    repoURL: https://github.com/shubhamchav/Argocd_Todo_Java.git
     targetRevision: main
     path: backend/k8s
   destination:

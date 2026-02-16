@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: <DOCKERHUB_USERNAME>/todo-backend:latest
+          image: "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://<MYSQL_HOST>:3306/tododb
+              value: "jdbc:mysql://shubhamtodo.clbdj44v7c4x.us-east-1.rds.amazonaws.com:3306/tododb"
             - name: SPRING_DATASOURCE_USERNAME
-              value: root
+              value: "admin"
             - name: SPRING_DATASOURCE_PASSWORD
-              value: root
+              value: "newpassword"
 
