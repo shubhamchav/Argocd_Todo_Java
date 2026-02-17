@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          image: 543816070942.dkr.ecr.us-east-1.amazonaws.com/shubham_argocd_todo_java:c306c8316051b4710ec8ef7064bf52b9c419e957
           ports:
             - containerPort: 8080
           env:
