@@ -1,0 +1,27 @@
+# Java
+/target/
+
+# Maven
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+
+# IDEs and editors
+/.idea/
+*.iml
+*.ipr
+*.iws
+*.sw?
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Others
+*.class
+
+# Node
+node_modules/
