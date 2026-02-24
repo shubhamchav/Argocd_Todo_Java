@@ -54,30 +54,30 @@ jobs:
           aws s3 cp "$JAR_FILE.asc" s3://shubhamgpgpoc/
         shell: bash
 
-  # deploy-ec2:
-  #   needs: build-sign-upload
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download SSH key
-  #       run: |
-  #         echo "$EC2_SSH_KEY" > ec2_key.pem
-  #         chmod 600 ec2_key.pem
-  #       env:
-  #         EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-  #       shell: bash
+  deploy-ec2:
+    needs: build-sign-upload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download SSH key
+        run: |
+          echo "$EC2_SSH_KEY" > ec2_key.pem
+          chmod 600 ec2_key.pem
+        env:
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+        shell: bash
 
-  #     - name: Deploy on EC2
-  #       run: |
-  #         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
-  #           set -e
-  #           sudo apt-get update && sudo apt-get install -y awscli gnupg openjdk-17-jre-headless
-  #           cd ~
-  #           aws s3 cp s3://shubhamgpgpoc/ . --recursive --exclude "*" --include "*.jar" --include "*.jar.asc"
-  #           JAR_FILE=$(ls *.jar | head -n 1)
-  #           echo "Verifying GPG signature..."
-  #           gpg --batch --verify "$JAR_FILE.asc" "$JAR_FILE"
-  #           if pgrep -f "$JAR_FILE"; then pkill -f "$JAR_FILE"; fi
-  #           echo "Starting application..."
-  #           nohup java -jar "$JAR_FILE" > app.log 2>&1 &
-  #         '
-  #       shell: bash
+      - name: Deploy on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
+            set -e
+            sudo apt-get update && sudo apt-get install -y awscli gnupg openjdk-17-jre-headless
+            cd ~
+            aws s3 cp s3://shubhamgpgpoc/ . --recursive --exclude "*" --include "*.jar" --include "*.jar.asc"
+            JAR_FILE=$(ls *.jar | head -n 1)
+            echo "Verifying GPG signature..."
+            gpg --batch --verify "$JAR_FILE.asc" "$JAR_FILE"
+            if pgrep -f "$JAR_FILE"; then pkill -f "$JAR_FILE"; fi
+            echo "Starting application..."
+            nohup java -jar "$JAR_FILE" > app.log 2>&1 &
+          '
+        shell: bash
