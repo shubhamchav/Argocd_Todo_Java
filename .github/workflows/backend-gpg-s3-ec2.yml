@@ -1,4 +1,9 @@
+
 name: Build, GPG Sign, Upload to S3, Deploy to EC2
+
+permissions:
+  id-token: write
+  contents: read
 
 on:
   push:
