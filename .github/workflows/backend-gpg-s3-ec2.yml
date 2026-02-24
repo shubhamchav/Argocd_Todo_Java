@@ -32,7 +32,9 @@ jobs:
       - name: GPG sign JAR
         run: |
           JAR_FILE=$(ls target/*.jar | head -n 1)
-          gpg --batch --yes --armor --detach-sign "$JAR_FILE"
+          gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" --armor --detach-sign "$JAR_FILE"
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         shell: bash
 
       - name: Configure AWS credentials
