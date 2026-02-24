@@ -3,7 +3,7 @@ name: Build, GPG Sign, Upload to S3, Deploy to EC2
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-sign-upload:
